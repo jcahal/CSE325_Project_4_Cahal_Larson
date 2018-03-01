@@ -59,7 +59,8 @@ void setup() {
     while (1);
   }
 
-  byte c_data[22] = {0, 0, 0, 0, 0, 0, 92, 254, 115, 3, 39, 1, 1, 0, 254, 255, 1, 0, 232, 3, 58, 5};    ///////////////// PASTE YOUR CALIBRATION DATA HERE /////////////
+  byte c_data[22] ={0, 0, 0, 0, 0, 0, 192, 254, 242, 0, 250, 0, 0, 0, 254, 255, 1, 0, 232, 3, 129, 4};
+  //byte c_data[22] = {0, 0, 0, 0, 0, 0, 92, 254, 115, 3, 39, 1, 1, 0, 254, 255, 1, 0, 232, 3, 58, 5};    ///////////////// PASTE YOUR CALIBRATION DATA HERE /////////////
   //byte c_data[22] = {0, 0, 0, 0, 0, 0, 226, 253, 99, 3, 20, 2, 1, 0, 254, 255, 1, 0, 232, 3, 212, 3};
   bno.setCalibData(c_data);                                                                                       // Save calibration data
   delay(1000);
@@ -180,8 +181,7 @@ void printHeadingOnLCD() {
   {
     lcd.print(euler.x() + 10.37);
   }
-  
-  //lcd.print(euler.x() + 10.37);
+
 }
 
 void printSteerAngleOnLCD() {
