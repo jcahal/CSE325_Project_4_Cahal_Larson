@@ -59,7 +59,7 @@ void setup() {
     while (1);
   }
 
-  byte c_data[22] = {0, 0, 0, 0, 0, 0, 44, 254, 164, 3, 146, 1, 1, 0, 254, 255, 1, 0, 232, 3, 255, 2};    ///////////////// PASTE YOUR CALIBRATION DATA HERE /////////////
+  byte c_data[22] = {0, 0, 0, 0, 0, 0, 92, 254, 115, 3, 39, 1, 1, 0, 254, 255, 1, 0, 232, 3, 58, 5};    ///////////////// PASTE YOUR CALIBRATION DATA HERE /////////////
   //byte c_data[22] = {0, 0, 0, 0, 0, 0, 226, 253, 99, 3, 20, 2, 1, 0, 254, 255, 1, 0, 232, 3, 212, 3};
   bno.setCalibData(c_data);                                                                                       // Save calibration data
   delay(1000);
@@ -84,11 +84,11 @@ void ReadHeading() { // Input: Nothing - // Output: HEADING
 void CalculateSteering() { // Input: HEADING & Reference Heading - // Output: Steering Angle
   // Calculate the steering angle according to the referece heading and actual heading
 
-  float x = euler.x() - 10.37;
+  float x = euler.x() + 10.37;
 
-  if (x < 0)
+  if (x > 360)
   {
-    x + 360;
+    x -= 360;
   }
 
   // calculate the distance left and right to desired heading
@@ -171,14 +171,17 @@ void printHeadingOnLCD() {
   // print the heading data on serial monitor to verify the actual heading
   lcd.setCursor(0,0);
   lcd.print("H: ");
-  if ((euler.x() - 10.37) < 0)
+  
+  if ((euler.x() + 10.37) > 360)
   {
-    lcd.print(euler.x() - 10.37 + 360);
+    lcd.print((euler.x() + 10.37) - 360);
   }
   else
   {
-    lcd.print(euler.x() - 10.37);
+    lcd.print(euler.x() + 10.37);
   }
+  
+  //lcd.print(euler.x() + 10.37);
 }
 
 void printSteerAngleOnLCD() {
